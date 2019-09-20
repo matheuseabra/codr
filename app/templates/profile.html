@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %} 
+    <div class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__supporting-text">         
+            <h3><img src="{{ user.avatar(64) }}">  {{ user.username }}</h3>
+            <p>{{ user.email }}</p>
+            {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+            {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+        </div>
+    </div>
+{% endblock %}
