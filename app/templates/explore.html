@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h4>Explore your interests <i data-feather="compass"></i></h4>
+<ul class="demo-list-three mdl-list">
+    {% for post in posts %}
+    {% include '_post.html' %}
+    {% endfor %}
+</ul>
+{% if prev_url %}
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="{{ prev_url }}">
+    <i class="material-icons">
+        keyboard_arrow_left
+    </i>
+</a>
+{% endif %}
+{% if next_url %}
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="{{ next_url }}">
+    <i class="material-icons">
+        keyboard_arrow_right
+    </i>
+</a>
+{% endif %}
+{% endblock %}

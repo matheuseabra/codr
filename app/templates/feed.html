@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h4>Hi, {{ current_user.username }}!</h4>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__supporting-text">
+            <div class="mdl-textfield mdl-js-textfield">
+                {{ form.post(class="mdl-textfield__input", placeholder="What's hapenning?") }}
+                {% for error in form.post.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mdl-card__actions mdl-card--border ">
+            {{ form.submit(class="mdl-button font-sc mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+        </div>
+    </div>
+</form>
+
+<ul class="demo-list-three mdl-list">
+    {% for post in posts %}
+    {% include '_post.html' %}
+    {% endfor %}
+</ul>
+
+{% if prev_url %}
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="{{ prev_url }}">
+    <i class="material-icons">
+        keyboard_arrow_left
+    </i>
+</a>
+{% endif %}
+{% if next_url %}
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="{{ next_url }}">
+    <i class="material-icons">
+        keyboard_arrow_right
+    </i>
+</a>
+{% endif %}
+{% endblock %}
