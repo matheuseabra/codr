@@ -41,11 +41,11 @@
           <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
             href="{{ url_for('register') }}">Sign Up</a>
           {% else %}
-          <a class="mdl-navigation__link" href="{{ url_for('index') }}"><i class="material-icons">home</i></a>
+          <a class="mdl-navigation__link" href="{{ url_for('index') }}"><i class="material-icons">home</i> Feed</a>
           <a class="mdl-navigation__link" href="{{ url_for('user', username=current_user.username) }}"><i
-              class="material-icons">account_box</i></a>
-          <a class="mdl-navigation__link" href={{ url_for('logout') }}><i
-              class="material-icons">power_settings_new</i></a>
+              class="material-icons">account_box</i> Profile</a>
+          <a class="mdl-navigation__link" href={{ url_for('logout') }}><i class="material-icons">power_settings_new</i>
+            Sign out</a>
           {% endif %}
         </nav>
       </div>
@@ -53,8 +53,19 @@
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Psiu</span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="{{ url_for('index') }}">Feed</a>
+        {% if current_user.is_anonymous %}
         <a class="mdl-navigation__link" href="{{ url_for('login') }}">Sign in</a>
+        <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{ url_for('register') }}">Sign
+          Up</a>
+        {% else %}
+        <a class="mdl-navigation__link" href="{{ url_for('index') }}"><i class="material-icons">home</i> Feed</a>
+        <a class="mdl-navigation__link" href="{{ url_for('user', username=current_user.username) }}"><i
+            class="material-icons">account_box</i> Profile</a>
+        <a class="mdl-navigation__link" href={{ url_for('logout') }}>
+          <i class="material-icons">power_settings_new</i>
+          Sign out
+        </a>
+        {% endif %}
       </nav>
     </div>
     <main class="mdl-layout__content">

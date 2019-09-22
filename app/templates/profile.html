@@ -2,11 +2,31 @@
 
 {% block content %}
 <div class="mdl-card mdl-shadow--2dp">
+    {% if user == current_user %}
+    <div class="mdl-card__menu">
+        <a href="{{ url_for('edit_profile') }}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">edit</i>
+        </a>
+    </div>
+    {% endif %}
     <div class="mdl-card__supporting-text">
-        <h3><img src="{{ user.avatar(64) }}"> {{ user.username }}</h3>
-        <p>{{ user.email }}</p>
-        {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-        {% if user.last_seen %}<p>Last seen: {{ user.last_seen }}</p>{% endif %}
+        <ul class="demo-list-three mdl-list">
+            <li class="mdl-list__item mdl-list__item--three-line">
+                <div class="mdl-list__item-primary-content">
+                    <img src="{{ user.avatar(42) }}" class="material-icons mdl-list__item-avatar" />
+                    <span>{{ user.username }}</span>
+                    <span class="mdl-list__item-text-body">
+                        {{ user.email }}
+                    </span>
+                </div>
+            </li>
+            <li class="mdl-list__item mdl-list__item--three-line">
+                <div class="mdl-list__item-primary-content">
+                    <span class="mdl-list__item-text-body">Last seen: {{ user.last_seen }}</span>
+                    {% if user.about_me %}<span>{{ user.bio }}</span>{% endif %}
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 {% endblock %}
