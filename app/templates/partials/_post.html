@@ -1,0 +1,21 @@
+<li class="mdl-list__item mdl-list__item--three-line">
+  <span class="mdl-list__item-primary-content">
+    <img src="{{ post.author.avatar(42) }}" class="material-icons mdl-list__item-avatar" />
+
+    {% set user_link %}
+    <a style="text-decoration: none;" href="{{ url_for('main.user', username=post.author.username) }}">
+      <b>
+        @{{ post.author.username }}
+      </b>
+    </a>
+    <small style="opacity: 0.5;">{{ moment(post.timestamp).fromNow() }}</small>
+    {% endset %}
+
+    {{ _('%(username)s', username=user_link) }}
+
+    <p class="mdl-list__item-text-body">
+      {{ post.body }}
+    </p>
+  </span>
+
+</li>

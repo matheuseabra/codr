@@ -1,0 +1,79 @@
+<header class="black-bg mdl-layout__header mdl-layout__header--scroll  mdl-shadow--2dp">
+    <div class="mdl-layout__header-row">
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('main.index') }}">
+            <img style="height: 36px; width: auto;" src="{{ url_for('static', filename='img/codr-logo-white.svg') }}"
+                alt="Codr logo">
+        </a>
+        {% else %}
+        <a href="{{ url_for('main.feed') }}">
+            <img style="height: 36px; width: auto;" src="{{ url_for('static', filename='img/codr-logo-white.svg') }}"
+                alt="Codr logo">
+        </a>
+        {% endif %}
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+            {% if current_user.is_anonymous %}
+            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                href="{{ url_for('auth.register') }}"><i data-feather="user-plus"></i>
+                <b>
+                    Sign Up now
+                </b>
+            </a>
+            <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">
+                <i data-feather="log-in"></i>
+                Sign In
+            </a>
+            {% else %}
+            <a class="mdl-navigation__link" href="{{ url_for('main.feed') }}"><i data-feather="home"></i> Feed</a>
+            <a class="mdl-navigation__link" href="{{ url_for('main.explore') }}"><i data-feather="compass"></i>
+                Explore
+            </a>
+            <!-- <a class="mdl-navigation__link" href="{{ url_for('main.user', username=current_user.username) }}">
+                <i data-feather="user"></i>
+                {{ current_user.username }}
+            </a> -->
+            <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}"><i data-feather="log-out"></i>
+                Sign out</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+<div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('auth.login') }}">
+            <img style="height: 36px; width: auto;" src="{{ url_for('static', filename='img/codr-logo-white.svg') }}"
+                alt="Codr logo">
+        </a>
+        {% else %}
+        <a href="{{ url_for('main.feed') }}">
+            <img style="height: 36px; width: auto;" src="{{ url_for('static', filename='img/codr-logo-white.svg') }}"
+                alt="Codr logo">
+        </a>
+        {% endif %}
+    </span>
+    <nav class="mdl-navigation">
+        {% if current_user.is_anonymous %}
+        <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">
+            <i data-feather="log-in"></i>
+            Sign in
+        </a>
+        <a class="mdl-navigation__link" href="{{ url_for('auth.register') }}">
+            <i data-feather="user-plus"></i>
+            Sign Up
+        </a>
+        {% else %}
+        <a class="mdl-navigation__link" href="{{ url_for('main.feed') }}"><i data-feather="home"></i> Feed</a>
+        <a class="mdl-navigation__link" href="{{ url_for('main.explore') }}"><i data-feather="compass"></i>
+            Explore
+        </a>
+        <a class="mdl-navigation__link" href="{{ url_for('main.user', username=current_user.username) }}"><i
+                data-feather="user"></i> Profile</a>
+        <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">
+            <i data-feather="log-out"></i>
+            Sign out
+        </a>
+        {% endif %}
+    </nav>
+</div>

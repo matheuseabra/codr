@@ -1,42 +1,49 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h4>Hi, {{ current_user.username }}!</h4>
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <div class="demo-card-square mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__supporting-text">
-            <div class="mdl-textfield mdl-js-textfield">
-                {{ form.post(class="mdl-textfield__input", placeholder="What's hapenning?") }}
-                {% for error in form.post.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <h4>Feed <i data-feather="home"></i></h4>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-card--expand">
+                    <h3 class="mdl-card__title-text font-sc"><b>What's hapenning?</b></h3>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        {{ form.post(class="mdl-textfield__input", placeholder="Say something") }}
+                        {% for error in form.post.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    {{ form.submit(class="mdl-button font-sc mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                </div>
             </div>
-        </div>
-        <div class="mdl-card__actions mdl-card--border ">
-            {{ form.submit(class="mdl-button font-sc mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
-        </div>
+        </form>
     </div>
-</form>
+    <div class="mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <ul class="demo-list-three mdl-list">
+            {% for post in posts %}
+            {% include 'partials/_post.html' %}
+            {% endfor %}
+        </ul>
 
-<ul class="demo-list-three mdl-list">
-    {% for post in posts %}
-    {% include '_post.html' %}
-    {% endfor %}
-</ul>
-
-{% if prev_url %}
-<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="{{ prev_url }}">
-    <i class="material-icons">
-        keyboard_arrow_left
-    </i>
-</a>
-{% endif %}
-{% if next_url %}
-<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="{{ next_url }}">
-    <i class="material-icons">
-        keyboard_arrow_right
-    </i>
-</a>
-{% endif %}
+        {% if prev_url %}
+        <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="{{ prev_url }}">
+            <i class="material-icons">
+                keyboard_arrow_left
+            </i>
+        </a>
+        {% endif %}
+        {% if next_url %}
+        <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            href="{{ next_url }}">
+            <i class="material-icons">
+                keyboard_arrow_right
+            </i>
+        </a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

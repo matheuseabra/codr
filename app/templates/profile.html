@@ -1,50 +1,57 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="mdl-card mdl-shadow--2dp">
-    {% if user == current_user %}
-    <div class="mdl-card__menu">
-        <a href="{{ url_for('edit_profile') }}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-            <i class="material-icons">edit</i>
-        </a>
-    </div>
-    {% endif %}
-    <div class="mdl-card__supporting-text">
-        <ul class="demo-list-three mdl-list">
-            <li class="mdl-list__item mdl-list__item--three-line">
-                <div class="mdl-list__item-primary-content">
-                    <img src="{{ user.avatar(42) }}" class="material-icons mdl-list__item-avatar" />
-                    <b>@{{ user.username }}</b>
-                    <span class="mdl-list__item-text-body">
-                        {{ user.email }}
-                    </span>
-                </div>
-            </li>
-            <li class="mdl-list__item mdl-list__item--three-line">
-                <div class="mdl-list__item-primary-content">
-                    <span class="mdl-list__item-text-body">Last seen: {{ user.last_seen }}</span>
-                    <p class="mdl-list__item-text-body">{{ user.followers.count() }} followers,
-                        {{ user.followed.count() }} following</p>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <h4>Profile <i data-feather="user"></i></h4>
+        <div class="mdl-card mdl-shadow--2dp">
+            {% if user == current_user %}
+            <div class="mdl-card__menu">
+                <a href="{{ url_for('main.edit_profile') }}"
+                    class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i data-feather="edit"></i>
+                </a>
+            </div>
+            {% endif %}
+            <div class="mdl-card__supporting-text">
+                <ul class="demo-list-three mdl-list">
+                    <li class="mdl-list__item mdl-list__item--three-line">
+                        <div class="mdl-list__item-primary-content">
+                            <img src="{{ user.avatar(42) }}" class="material-icons mdl-list__item-avatar" />
+                            <b>@{{ user.username }}</b>
+                            <span class="mdl-list__item-text-body">
+                                {{ user.email }}
+                            </span>
+                        </div>
+                    </li>
+                    <li class="mdl-list__item mdl-list__item--three-line">
+                        <div class="mdl-list__item-primary-content">
+                            <span class="mdl-list__item-text-body">
+                                Last seen: {{ moment(user.last_seen).fromNow() }}
+                            </span>
+                            <p class="mdl-list__item-text-body">{{ user.followers.count() }} followers,
+                                {{ user.followed.count() }} following</p>
+                            {% if user.about_me %}<span>{{ user.bio }}</span>{% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-                    {% if user.about_me %}<span>{{ user.bio }}</span>{% endif %}
-                </div>
-            </li>
-        </ul>
-    </div>
+            {% if user != current_user %}
+            <div class="mdl-card__actions mdl-card--border">
+                {% if not current_user.is_following(user) %}
+                <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+                    href="{{ url_for('main.follow', username=user.username) }}">
+                    Follow
+                </a>
+                {% else %}
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    href="{{ url_for('main.unfollow', username=user.username) }}">Unfollow</a>
+                {% endif %}
+            </div>
+            {% endif %}
 
-    {% if user != current_user %}
-    <div class="mdl-card__actions mdl-card--border">
-        {% if not current_user.is_following(user) %}
-        <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-            href="{{ url_for('follow', username=user.username) }}">
-            Follow
-        </a>
-        {% else %}
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-            href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a>
-        {% endif %}
+        </div>
     </div>
-    {% endif %}
-
 </div>
 {% endblock %}
