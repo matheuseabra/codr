@@ -20,7 +20,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    bio = db.Column(db.String(148), default="")
+    bio = db.Column(db.String(280), default="")
     active = db.Column(db.Boolean, default=False)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     posts = db.relationship("Post", backref="author", lazy="dynamic")

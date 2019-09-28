@@ -78,15 +78,16 @@ def user(username):
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
-        current_user.username = form.username.data
+        print(form.bio.data)
         current_user.bio = form.bio.data
+        current_user.username = form.username.data
         db.session.commit()
         flash("Your changes have been saved.")
-        return redirect(url_for("edit_profile"))
+        return redirect(url_for("main.edit_profile"))
     elif request.method == "GET":
         form.username.data = current_user.username
         form.bio.data = current_user.bio
-    return render_template("edit_profile.html", title="Edit Profile", form=form)
+    return render_template("edit_profile.html", title=_("Edit Profile"), form=form)
 
 
 @blueprint.route("/follow/<username>")

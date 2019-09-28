@@ -36,3 +36,4 @@ venv
 app.db
 logs
 *.logs
+.flaskenv
