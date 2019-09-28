@@ -2,12 +2,14 @@
 
 {% block content %}
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <div style="text-align: center;"
+        class="mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--12-col-tablet mdl-cell--12-col-phone">
         <h1>
-            Think, code and share.
+            Think, type and share.
         </h1>
         <p>The simplest way to share and think about code.</p>
-        <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Sign up</a>
+        <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+            href="{{ url_for('auth.register') }}"><i data-feather="user-plus"></i> <b>Sign up for free</b></a>
     </div>
 </div>
 {% endblock %}

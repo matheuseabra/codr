@@ -24,14 +24,14 @@
                             </span>
                         </div>
                     </li>
-                    <li class="mdl-list__item mdl-list__item--three-line">
+                    <li>
                         <div class="mdl-list__item-primary-content">
                             <span class="mdl-list__item-text-body">
                                 Last seen: {{ moment(user.last_seen).fromNow() }}
                             </span>
                             <p class="mdl-list__item-text-body">{{ user.followers.count() }} followers,
                                 {{ user.followed.count() }} following</p>
-                            {% if user.about_me %}<span>{{ user.bio }}</span>{% endif %}
+                            {% if user.bio %}<span class="mdl-list__item-text-body">{{ user.bio }}</span>{% endif %}
                         </div>
                     </li>
                 </ul>
